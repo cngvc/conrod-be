@@ -1,4 +1,4 @@
-import { RegistryDate } from 'common/embedded/registry-dates.embedded';
+import { RegistryDates } from 'common/embedded/registry-dates.embedded';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -18,6 +18,6 @@ export class User {
   @Column()
   password: string;
 
-  @Column(() => RegistryDate, { prefix: false })
-  registryDates: RegistryDate;
+  @Column(() => RegistryDates, { prefix: false })
+  registryDates: RegistryDates;
 }

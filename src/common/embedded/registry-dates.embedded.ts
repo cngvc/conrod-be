@@ -1,6 +1,6 @@
 import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-export class RegistryDate {
+export class RegistryDates {
   @CreateDateColumn()
   createdAt: Date;
 
