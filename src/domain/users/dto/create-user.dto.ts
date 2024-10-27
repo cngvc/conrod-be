@@ -7,7 +7,7 @@ export class CreateUserDto {
   @IsEmail()
   readonly email: string;
 
-  @IsPhoneNumber()
+  @IsPhoneNumber('VN')
   readonly phone: string;
 
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
