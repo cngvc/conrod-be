@@ -2,5 +2,5 @@
   "files.eol": "\n",
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
-  "cSpell.words": ["typeorm"]
+  "cSpell.words": ["DATASOURCE", "typeorm"]
 }
