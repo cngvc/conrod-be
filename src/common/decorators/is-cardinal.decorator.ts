@@ -1,13 +1,10 @@
-import { applyDecorators, ValidationPipeOptions } from '@nestjs/common';
-import { IsInt, IsPositive } from 'class-validator';
+import { applyDecorators } from '@nestjs/common';
+import { IsInt, IsPositive, ValidationOptions } from 'class-validator';
 
 /**
  * Check if the value is a positive integer and greater than zero.
  */
 export const IsCardinal = (
-  validationPipeOptions?: ValidationPipeOptions,
+  validationOptions?: ValidationOptions,
 ): PropertyDecorator =>
-  applyDecorators(
-    IsInt(validationPipeOptions),
-    IsPositive(validationPipeOptions),
-  );
+  applyDecorators(IsInt(validationOptions), IsPositive(validationOptions));
