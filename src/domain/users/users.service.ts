@@ -14,8 +14,8 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  create(payload: CreateUserDto) {
-    const user = this.userRepository.create(payload);
+  create(createUserDto: CreateUserDto) {
+    const user = this.userRepository.create(createUserDto);
     return this.userRepository.save(user);
   }
 
@@ -28,15 +28,20 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    const user = await this.userRepository.findOneBy({ id });
+    const user = await this.userRepository.findOne({
+      where: { id },
+      relations: {
+        orders: true,
+      },
+    });
     if (!user) {
       throw new NotFoundException('User not found');
     }
     return user;
   }
 
-  async update(id: number, payload: UpdateUserDto) {
-    const user = await this.userRepository.preload({ id, ...payload });
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const user = await this.userRepository.preload({ id, ...updateUserDto });
     if (!user) {
       throw new NotFoundException('User not found');
     }

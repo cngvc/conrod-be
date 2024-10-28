@@ -3,8 +3,10 @@ import { UsersModule } from 'users/users.module';
 import { CommonModule } from './common/common.module';
 import { DatabaseModule } from './database/database.module';
 import { EnvModule } from './env/env.module';
+import { OrdersModule } from './domain/orders/orders.module';
+import { PaymentsModule } from './domain/payments/payments.module';
 
 @Module({
-  imports: [EnvModule, CommonModule, DatabaseModule, UsersModule],
+  imports: [EnvModule, CommonModule, DatabaseModule, UsersModule, OrdersModule, PaymentsModule],
 })
 export class AppModule {}
