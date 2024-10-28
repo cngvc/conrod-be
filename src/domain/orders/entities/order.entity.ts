@@ -31,10 +31,14 @@ export class Order {
   @Column(() => RegistryDates, { prefix: false })
   registryDates: RegistryDates;
 
-  @OneToOne(() => Payment, (payment) => payment.order, { cascade: true })
+  @OneToOne(() => Payment, (payment) => payment.order, {
+    cascade: true,
+  })
   payment: Payment;
 
-  @OneToMany(() => OrderItem, (orderItem) => orderItem.order, { cascade: true })
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.order, {
+    cascade: true,
+  })
   items: OrderItem[];
 
   @Expose()

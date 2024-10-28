@@ -12,7 +12,6 @@ import { User } from 'users/entities/user.entity';
 export class SeedingService {
   constructor(private readonly dataSource: DataSource) {}
   async seed() {
-    console.log(1232);
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
