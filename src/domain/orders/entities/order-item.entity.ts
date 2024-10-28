@@ -1,3 +1,4 @@
+import { Expose } from 'class-transformer';
 import { Product } from 'products/entities/product.entity';
 import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Order } from './order.entity';
@@ -21,4 +22,9 @@ export class OrderItem {
 
   @ManyToOne(() => Product, (product) => product.items)
   product: Product;
+
+  @Expose()
+  get subTotal() {
+    return this.quantity * this.price;
+  }
 }
