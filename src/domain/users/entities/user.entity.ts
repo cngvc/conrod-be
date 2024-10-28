@@ -1,3 +1,4 @@
+import { IsPassword } from 'common/decorators/validators/is-password.decorator';
 import { RegistryDates } from 'common/embedded/registry-dates.embedded';
 import { Order } from 'orders/entities/order.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
@@ -17,6 +18,7 @@ export class User {
   phone: string;
 
   @Column()
+  @IsPassword()
   password: string;
 
   @Column(() => RegistryDates, { prefix: false })
