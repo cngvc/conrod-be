@@ -1,5 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { RequestUser } from 'auth/interfaces/request-user.interface';
+import { Role } from 'auth/roles/enums/role.enum';
+import { compareUserId } from 'auth/util/authorization.util';
 import { PaginationDto } from 'common/dto/pagination.dto';
 import { DEFAULT_PAGE_SIZE } from 'common/util/common.constants';
 import { Repository } from 'typeorm';
@@ -40,7 +43,14 @@ export class UsersService {
     return user;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+    currentUser: RequestUser,
+  ) {
+    if (currentUser.role !== Role.ADMIN) {
+      compareUserId(currentUser.id, id);
+    }
     const user = await this.userRepository.preload({
       id,
       ...updateUserDto,
@@ -51,8 +61,11 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
-  async remove(id: number) {
+  async remove(id: number, currentUser: RequestUser) {
     const user = await this.findOne(id);
+    if (currentUser.role !== Role.ADMIN) {
+      compareUserId(currentUser.id, id);
+    }
     await this.userRepository.remove(user);
   }
 }

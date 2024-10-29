@@ -4,6 +4,9 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { RequestUser } from 'auth/interfaces/request-user.interface';
+import { Role } from 'auth/roles/enums/role.enum';
+import { compareUserId } from 'auth/util/authorization.util';
 import { Order } from 'orders/entities/order.entity';
 import { OrderStatus } from 'orders/enums/order-status.enum';
 import { Repository } from 'typeorm';
@@ -19,7 +22,7 @@ export class PaymentsService {
     private readonly paymentRepository: Repository<Payment>,
   ) {}
 
-  async payOrder(id: number) {
+  async payOrder(id: number, currentUser: RequestUser) {
     const order = await this.orderRepository.findOne({
       where: {
         id,
@@ -30,6 +33,9 @@ export class PaymentsService {
     });
     if (!order) {
       throw new NotFoundException('Order not found');
+    }
+    if (currentUser.role !== Role.ADMIN) {
+      compareUserId(currentUser.id, order.customer.id);
     }
 
     if (order.payment) {
