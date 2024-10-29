@@ -11,7 +11,6 @@ import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
 import { User } from './decorators/user.decorator';
-import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
 import { RequestUser } from './interfaces/request-user.interface';
 
@@ -35,7 +34,6 @@ export class AuthController {
     });
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('profile')
   getCurrentUserProfile(@User() { id }: RequestUser) {
     return this.authService.getCurrentUserProfile(id);
