@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { IsPassword } from 'common/decorators/validators/is-password.decorator';
 import { RegistryDates } from 'common/embedded/registry-dates.embedded';
 import { Order } from 'orders/entities/order.entity';
@@ -17,6 +18,7 @@ export class User {
   @Column({ unique: true })
   phone: string;
 
+  @Exclude()
   @Column()
   @IsPassword()
   password: string;
