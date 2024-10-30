@@ -31,15 +31,12 @@ export class ProductsService {
   }
 
   async findOne(id: number) {
-    const product = await this.productRepository.findOne({
+    const product = await this.productRepository.findOneOrFail({
       where: { id },
       relations: {
         categories: true,
       },
     });
-    if (!product) {
-      throw new NotFoundException('Product not found');
-    }
     return product;
   }
 

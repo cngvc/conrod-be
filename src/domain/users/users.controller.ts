@@ -36,7 +36,6 @@ export class UsersController {
   }
 
   @Roles(Role.MANAGER)
-  @Public()
   @Get(':id')
   findOne(@Param() { id }: IdDto) {
     return this.usersService.findOne(id);
