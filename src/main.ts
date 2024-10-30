@@ -11,6 +11,8 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('The Simple Shop')
     .setDescription('Document for the shop APIs')
+    .addBearerAuth()
+    .addSecurityRequirements('bearer')
     .setVersion('1.0')
     .build();
 

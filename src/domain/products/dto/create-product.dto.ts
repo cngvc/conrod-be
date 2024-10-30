@@ -9,7 +9,7 @@ export class CreateProductDto {
 
   @IsOptional()
   @Length(2, 500)
-  readonly description: string;
+  readonly description?: string;
 
   @IsCurrency()
   readonly price: number;
