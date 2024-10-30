@@ -8,16 +8,17 @@ import {
   Patch,
   Post,
   Query,
-  UploadedFile,
+  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from 'auth/decorators/public.decorator';
 import { Roles } from 'auth/decorators/roles.decorator';
 import { Role } from 'auth/roles/enums/role.enum';
 import { PaginationDto } from 'common/dto/pagination.dto';
 import { createFileValidators } from 'files/util/file-validation.util';
+import { MaxFileCount } from 'files/util/file.constants';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
@@ -57,16 +58,16 @@ export class ProductsController {
     return this.productsService.remove(+id);
   }
 
-  @UseInterceptors(FileInterceptor('file'))
-  @Post(':id/image')
+  @UseInterceptors(FilesInterceptor('files', MaxFileCount.PRODUCT_IMAGE))
+  @Post(':id/images')
   updateImage(
-    @UploadedFile(
+    @UploadedFiles(
       new ParseFilePipe({
         validators: createFileValidators('2MB', 'png', 'jpeg'),
       }),
     )
-    file: Express.Multer.File,
+    files: Express.Multer.File[],
   ) {
-    return file;
+    return files;
   }
 }
