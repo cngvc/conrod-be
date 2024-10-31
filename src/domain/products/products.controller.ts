@@ -25,8 +25,8 @@ import {
   MaxFileCount,
   MULTIPART_FORM_DATA_KEY,
 } from 'files/util/file.constants';
-import { PaginationDto } from 'querying/dto/pagination.dto';
 import { CreateProductDto } from './dto/create-product.dto';
+import { ProductsQueryDto } from './dto/querying/products-query.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
 
@@ -43,8 +43,8 @@ export class ProductsController {
 
   @Public()
   @Get()
-  findAll(@Query() paginationDto: PaginationDto) {
-    return this.productsService.findAll(paginationDto);
+  findAll(@Query() productsQueryDto: ProductsQueryDto) {
+    return this.productsService.findAll(productsQueryDto);
   }
 
   @Public()
