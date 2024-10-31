@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { RequestUser } from 'auth/interfaces/request-user.interface';
 import { Role } from 'auth/roles/enums/role.enum';
 import { compareUserId } from 'auth/util/authorization.util';
-import { PaginationDto } from 'common/dto/pagination.dto';
-import { DEFAULT_PAGE_SIZE } from 'common/util/common.constants';
+import { PaginationDto } from 'querying/dto/pagination.dto';
+import { DefaultPageSize } from 'querying/util/query.constants';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -23,10 +23,10 @@ export class UsersService {
   }
 
   findAll(paginationDto: PaginationDto) {
-    const { limit, offset } = paginationDto;
+    const { limit, page } = paginationDto;
     return this.userRepository.find({
-      skip: offset,
-      take: limit ?? DEFAULT_PAGE_SIZE.USER,
+      skip: page,
+      take: limit ?? DefaultPageSize.USER,
     });
   }
 

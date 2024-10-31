@@ -9,8 +9,9 @@ import { CategoriesModule } from './domain/categories/categories.module';
 import { ProductsModule } from './domain/products/products.module';
 import { AuthModule } from './auth/auth.module';
 import { FilesModule } from './files/files.module';
+import { QueryingModule } from './querying/querying.module';
 
 @Module({
-  imports: [EnvModule, CommonModule, DatabaseModule, UsersModule, OrdersModule, PaymentsModule, CategoriesModule, ProductsModule, AuthModule, FilesModule],
+  imports: [EnvModule, CommonModule, DatabaseModule, UsersModule, OrdersModule, PaymentsModule, CategoriesModule, ProductsModule, AuthModule, FilesModule, QueryingModule],
 })
 export class AppModule {}
