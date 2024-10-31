@@ -69,7 +69,10 @@ export class ProductsController {
     type: FilesSchema,
   })
   @Roles(Role.MANAGER)
-  @UseInterceptors(FilesInterceptor('files', MaxFileCount.PRODUCT_IMAGES))
+  @UseInterceptors(
+    FilesInterceptor('files', MaxFileCount.PRODUCT_IMAGES),
+    // BodyInterceptor,
+  )
   @Post(':id/images')
   uploadImage(
     @Param() { id }: IdDto,
