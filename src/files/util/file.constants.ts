@@ -1,5 +1,7 @@
 export const BASE_PATH = 'upload';
 
+export const MULTIPART_FORM_DATA_KEY = 'multipart/form-data';
+
 export const MaxFileCount = {
   PRODUCT_IMAGES: 5,
 } as const satisfies Record<string, number>;
