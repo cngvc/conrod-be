@@ -68,10 +68,9 @@ export class AuthService {
   }
 
   private createRequestUser(user: User): RequestUser {
-    const requestUser: RequestUser = {
+    return {
       id: user.id,
       role: user.role,
     };
-    return requestUser;
   }
 }
