@@ -18,6 +18,7 @@ import { Role } from 'auth/roles/enums/role.enum';
 import { IdDto } from 'common/dto/id.dto';
 import { PaginationDto } from 'common/dto/pagination.dto';
 import { IdFilenameDto } from 'files/dto/id-filename.dto';
+import { BodyInterceptor } from 'files/interceptors/body/body.interceptor';
 import { FileSchema } from 'files/swagger/schemas/file.schema';
 import { FilesSchema } from 'files/swagger/schemas/files.schema';
 import { createParseFilePipe } from 'files/util/file-validation.util';
@@ -69,10 +70,7 @@ export class ProductsController {
     type: FilesSchema,
   })
   @Roles(Role.MANAGER)
-  @UseInterceptors(
-    FilesInterceptor('files', MaxFileCount.PRODUCT_IMAGES),
-    // BodyInterceptor,
-  )
+  @UseInterceptors(FilesInterceptor('files', MaxFileCount.PRODUCT_IMAGES))
   @Post(':id/images')
   uploadImage(
     @Param() { id }: IdDto,
@@ -80,6 +78,25 @@ export class ProductsController {
     files: Express.Multer.File[],
   ) {
     return this.productsService.uploadImage(id, files);
+  }
+
+  @ApiConsumes(MULTIPART_FORM_DATA_KEY)
+  @ApiBody({
+    type: FilesSchema,
+  })
+  @Roles(Role.MANAGER)
+  @UseInterceptors(
+    FilesInterceptor('files', MaxFileCount.PRODUCT_IMAGES),
+    BodyInterceptor,
+  )
+  @Post('/images')
+  async createProductWithImage(
+    @UploadedFiles(createParseFilePipe('2MB', 'png', 'jpeg'))
+    files: Express.Multer.File[],
+    @Body() createProductDto: CreateProductDto,
+  ) {
+    const product = await this.productsService.create(createProductDto);
+    return this.productsService.uploadImage(product.id, files);
   }
 
   @ApiOkResponse({ type: FileSchema })
