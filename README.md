@@ -47,10 +47,18 @@ yarn
 yarn migration:run
 ```
 
+This migration, 1730201080123-insert-admin, will create a new admin user. Log in with `admin@gmail.com/Asdfgh1@3` to get an admin access token, then run the `/seeding` API to create seed data.
+
 6. **Start project in dev env**
 
 ```bash
 yarn start:dev
+```
+
+7. **API documents (Swagger)**
+
+```
+localhost:3000/api
 ```
 
 Happy coding!!!
